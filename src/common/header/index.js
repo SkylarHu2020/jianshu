@@ -46,7 +46,8 @@ const Header = (props) => {
 // state: store 中的 state
 const mapStateToProps = (state) => {
   return {
-    focused: state.header.focused
+    // immutable 对象不能用.来调用数据，使用get('name')
+    focused: state.header.get('focused')
   }
 }
 
