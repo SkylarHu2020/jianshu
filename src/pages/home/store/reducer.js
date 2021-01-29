@@ -43,6 +43,24 @@ const defaultState = fromJS({
     title: 'TXT – what we know so far about the new boy band K-pop kings BTS’ label is debuting',
     des: 'Following BTS’ huge success, their label Big Hit Entertainment is unveiling its first new boy band in six years. TXT or Tomorrow X Together will have a different, lighter sound than BTS and already have a huge social media following',
     imgUrl: '//piccn.ihuaben.com/pic/book/202004/2115/1587452723953-91998iv846_778-1038.jpeg?x-oss-process=image/resize,w_210/format,webp'
+  }],
+  recommendList: [{
+    id: 1,
+    imgUrl: "https://cdn.filestackcontent.com/pjHQFEBTNisvfgH8f1xO/convert?cache=true&crop=0%2C230%2C1949%2C974&crop_first=true&quality=90&w=1920"
+  }, {
+    id: 2,
+    imgUrl: "https://cdn.filestackcontent.com/pjHQFEBTNisvfgH8f1xO/convert?cache=true&crop=0%2C230%2C1949%2C974&crop_first=true&quality=90&w=1920"
+  }],
+  writerList: [{
+    id: 1,
+    avator: "https://upload.jianshu.io/users/upload_avatars/9988193/fc26c109-1ae6-4327-a298-2def343e9cd8.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp",
+    name: "董克平日记",
+    content: "写了1239.4k字 5.6k喜欢"
+  },{
+    id: 2,
+    avator: "https://upload.jianshu.io/users/upload_avatars/9988193/fc26c109-1ae6-4327-a298-2def343e9cd8.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp",
+    name: "董克平日记",
+    content: "写了1239.4k字 5.6k喜欢"
   }]
 })
 
