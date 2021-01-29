@@ -9,7 +9,7 @@ class Writer extends Component {
       <div>
         {
           list.map((item) => (
-            <WriterWrapper key={item.id}>
+            <WriterWrapper key={item.get('id')}>
               <img className="avator" src={item.get('avator')} alt="" />
               <div className="info">
                 <div className="writer-name">{item.get('name')}</div>
