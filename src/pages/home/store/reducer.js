@@ -4,8 +4,10 @@ import * as actionTypes from './actionTypes'
 const defaultState = fromJS({
   topicList: [],
   articleList: [],
+  articlePage: 1,
   recommendList: [],
-  writerList: []
+  writerList: [],
+  showScroll: false
 })
 
 const homeReducer = (state = defaultState, action) => {
@@ -18,7 +20,12 @@ const homeReducer = (state = defaultState, action) => {
         writerList: fromJS(action.writerList)
       })
     case actionTypes.GET_MORE_LIST_DATA:
-      return state.set('articleList', state.get('articleList').concat(action.articleList))
+      return state.merge({
+        articleList: state.get('articleList').concat(action.articleList),
+        articlePage: action.nextPage
+      })
+    case actionTypes.CHANGE_SHOW_SCROLL:
+      return state.set('showScroll', action.show)
     default:
       return state
   }

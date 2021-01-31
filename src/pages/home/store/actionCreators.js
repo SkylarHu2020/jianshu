@@ -21,16 +21,22 @@ export const getHomeInfo = () => {
   }
 }
 
-const getMoreListData = (data) => ({
+const getMoreListData = (data, nextPage) => ({
   type: actionTypes.GET_MORE_LIST_DATA,
-  articleList: fromJS(data)
+  articleList: fromJS(data),
+  nextPage
 })
 
-export const getMoreList = () => {
+export const getMoreList = (page) => {
   return (dispatch) => {
-    axios.get('/api/homeList.json').then((res) => {
+    axios.get('/api/homeList.json?page=' + page).then((res) => {
       const data = res.data.data
-      dispatch(getMoreListData(data))
+      dispatch(getMoreListData(data, page + 1))
     })
   }
 }
+
+export const changeShowScroll = (show) => ({
+  type: actionTypes.CHANGE_SHOW_SCROLL,
+  show
+})
