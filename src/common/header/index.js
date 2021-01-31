@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { HeaderWrapper, Logo, Nav, NavItem,
   NavSearch, Addition, Button, SearchWrapper,
   SearchInfo, SearchInfoTitle, SearchInfoSwitch,
@@ -6,9 +6,10 @@ import { HeaderWrapper, Logo, Nav, NavItem,
 import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
 import { actionCreators } from './store'
+import { actionCreators as loginActionCreators } from '../../pages/login/store'
 import { Link } from 'react-router-dom'
 
-class Header extends Component {
+class Header extends PureComponent {
 
   getListArea () {
     const { focused, list, page, totalPage, mouseIn,
@@ -45,7 +46,7 @@ class Header extends Component {
   }
 
   render () {
-    const { focused, list, handleInputBlur, handleInputFocused } = this.props
+    const { focused, list, login, handleInputBlur, handleInputFocused, logout } = this.props
     return (
       <HeaderWrapper>
         <Link to='/'>
@@ -54,7 +55,11 @@ class Header extends Component {
         <Nav>
           <NavItem className='left active'>首页</NavItem>
           <NavItem className='left'>下载App</NavItem>
-          <NavItem className='right'>登录</NavItem>
+          {
+            login ?
+              <NavItem className='right' onClick={logout}>退出</NavItem> :
+              <NavItem className='right'><Link to='/login'>登录</Link></NavItem>
+          }
           <NavItem className='right'>
             <i className="iconfont">&#xe636;</i>
           </NavItem>
@@ -75,10 +80,12 @@ class Header extends Component {
           </SearchWrapper>
         </Nav>
         <Addition>
-          <Button className='writting'>
-            <i className="iconfont">&#xe6e5;</i>
-            写文章
-          </Button>
+          <Link to='/write'>
+            <Button className='writting'>
+              <i className="iconfont">&#xe6e5;</i>
+              写文章
+            </Button>
+          </Link>
           <Button className='reg'>注册</Button>
         </Addition>
       </HeaderWrapper>
@@ -95,14 +102,14 @@ const mapStateToProps = (state) => {
     list: state.get('header').get('list'),
     page: state.get('header').get('page'),
     totalPage: state.get('header').get('totalPage'),
-    mouseIn: state.get('header').get('mouseIn')
+    mouseIn: state.get('header').get('mouseIn'),
+    login: state.get('login').get('login')
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     handleInputFocused (list) {
-      console.log(list)
       if (list.size === 0) {
         dispatch(actionCreators.getList())
       }
@@ -131,7 +138,9 @@ const mapDispatchToProps = (dispatch) => {
       } else {
         dispatch(actionCreators.changePage(1))
       }
-      
+    },
+    logout () {
+      dispatch(loginActionCreators.logout())
     }
   }
 }
