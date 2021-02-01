@@ -1,38 +1,28 @@
-import React, { PureComponent } from 'react'
+import React, { useEffect } from 'react'
 import { DetailWrapper, Header, Content } from './style'
-import { connect } from 'react-redux'
+import { shallowEqual } from 'react-redux'
 import { actionCreators } from './store'
 import { withRouter } from 'react-router-dom'
+import { useDispatch, useSelector} from 'react-redux'
 
+const Detail = () => {
+  const title = useSelector((state) => state.getIn(['detail', 'title']), shallowEqual)
+  const content = useSelector((state) => state.getIn(['detail', 'content']), shallowEqual)
+  const dispatch = useDispatch()
 
-class Detail extends PureComponent {
-  render() {
-    const { title, content } = this.props
-    return (
-      <DetailWrapper>
-        <Header>{title}</Header>
-        <Content
-          dangerouslySetInnerHTML={{__html: content}}
-        />
-      </DetailWrapper>
-    )
-  }
+  useEffect(() => {
+    dispatch(actionCreators.getDetailData())
+  }, [dispatch])
 
-  componentDidMount () {
-    this.props.getDetail(this.props.match.params.id)
-  }
+  return (
+    <DetailWrapper>
+      <Header>{title}</Header>
+      <Content
+        dangerouslySetInnerHTML={{__html: content}}
+      />
+    </DetailWrapper>
+  )
 }
 
-const mapState = (state) => ({
-  title: state.getIn(['detail', 'title']),
-  content: state.getIn(['detail', 'content'])
-})
 
-
-const mapDispatch = (dispatch) => ({
-  getDetail (id) {
-    dispatch(actionCreators.getDetailData(id))
-  }
-})
-
-export default connect(mapState, mapDispatch)(withRouter(Detail))
+export default withRouter(Detail)

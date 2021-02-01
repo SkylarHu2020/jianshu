@@ -9,4 +9,5 @@ const LoadableComponent = Loadable({
 })
 
 // 异步组件
-export default () => <LoadableComponent />
+const loadable = () => <LoadableComponent />
+export default loadable
